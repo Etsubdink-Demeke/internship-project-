@@ -1,4 +1,5 @@
 // Importing the development support form utils/development.js 
+// Importing the development support form utils/development.js 
 const { printConsole } = require("../utils/development");
 
 //Importing the mongoose library used to make the mongodb connection
@@ -6,6 +7,7 @@ const mongoose = require("mongoose")
 
 //Importing the mongodb atlas link 
 const MONGO_DB_URI = process.env.MONO_REMOTE_URL; 
+//creating a function called connectToDB that handles the database connectio 
 const connectToDB = async () => {
     try {
       printConsole(
