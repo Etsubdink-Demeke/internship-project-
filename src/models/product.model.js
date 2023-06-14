@@ -13,9 +13,10 @@ const productSchema = mongoose.Schema({
         type:String,
     },
     price:{
-        type:Number, 
+        type:Date, 
     },
  });
+
 
 //exporting the product schema as monngose collection
 module.exports = mongoose.model('Product', productSchema);
