@@ -21,6 +21,6 @@ app.use(express.urlencoded({ limit:"50mb", extended: true}));
 app.use(cors());
 //Importing the connectToDB function to the index.js file as it is the main entry to the project 
 app.use("/api/product", product)
-app.use("/api/complaint", product)
+app.use("/api/complaint", complaint)
 //Run Node APP
 module.exports = app
