@@ -2,20 +2,18 @@ const express = require("express");
 
 //Importing express router
 const router = express.Router();
-
-//Importing the product controller 
-const { create, update, get, show, deleteProduct} =  require("../controller/product.controller");
+const { create, update, get, show, deleteComplaint} =  require("../controller/complaint.controller");
 
 
 //Importing the product validation function from validation.middleware
-const { productSchema } = require("../middleware/validation.middleware");
+const { complaintSchema } = require("../middleware/validation.middleware");
 
 
-// Route for creating a product
-router.post("/create", productSchema, create);
+// Route for creating a product 
+router.post("/create", complaintSchema, create);
 
 //Route to update a specfic product
-router.put("/update/:id", productSchema, update);
+router.put("/update/:id", complaintSchema, update);
 
 //route to get all products
 router.get("/get", get);
@@ -24,8 +22,7 @@ router.get("/get", get);
 router.get("/show/:id", show);
 
 //route to delete a specfic product
-router.delete("/delete/:id", deleteProduct); 
+router.delete("/delete/:id", deleteComplaint); 
 
 //Exporting the routes 
-
 module.exports = router;
