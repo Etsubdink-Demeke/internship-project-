@@ -49,17 +49,28 @@ const show = asyncHandler(async (req, res) => {
 const create = asyncHandler(async (req, res) => {
     //Destruct the data sent from req.body 
     const { name, description, price } = req.body
+    const uploader = async (path) => await cloudinary.uploads(path, "Images")
+    try {
 
+        if (req.method === 'POST') {
+            const urls = []
+            const files = req.files; 
+            for(const file of files){
+                const { path } = file; 
+                const newPath = await uploader(path)
+                urls.push(newPath)
+                fs.unlinkSync(path)
+            }
     //we use uuidv4 to generate a random and unique id for the products
     const productId = uuidv4();
 
-    try {
         //creating the product
         const product = await new productModel({
             productId: productId,
             name: name,
             description: description,
-            price: price
+            price: price,
+            files:urls
         })
         
         product.save()
@@ -67,7 +78,13 @@ const create = asyncHandler(async (req, res) => {
             success: true,
             message: "product created sucessfully",
             data: product
-        })
+        })}
+        else {
+            return res.status(405).json({
+                err: `${req.method} method not allowed`
+            })
+        }
+
     } catch (error) {
         return res.status(412).send({
             success: false,
