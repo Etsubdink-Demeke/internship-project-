@@ -15,7 +15,12 @@ connectToDB();
 //Importing the product routes module
 const product = require("./src/routes/product.routes")
 const complaint = require("./src/routes/complaint.routes")
+const auth = require("./src/routes/auth.routes");
+
+
 //Adding Node features
+//using the auth route   
+app.use("/api/auth", auth)
 app.use(express.json({limit: "50mb"}));
 app.use(express.urlencoded({ limit:"50mb", extended: true}));
 app.use(cors());
