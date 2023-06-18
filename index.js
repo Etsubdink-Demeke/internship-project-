@@ -19,13 +19,14 @@ const auth = require("./src/routes/auth.routes");
 
 
 //Adding Node features
-//using the auth route   
-app.use("/api/auth", auth)
+
 app.use(express.json({limit: "50mb"}));
 app.use(express.urlencoded({ limit:"50mb", extended: true}));
 app.use(cors());
 //Importing the connectToDB function to the index.js file as it is the main entry to the project 
 app.use("/api/product", product)
 app.use("/api/complaint", complaint)
+//using the auth route   
+app.use("/api/auth", auth)
 //Run Node APP
 module.exports = app
