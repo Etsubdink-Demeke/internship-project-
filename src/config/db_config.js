@@ -1,12 +1,10 @@
 // Importing the development support form utils/development.js 
-// Importing the development support form utils/development.js 
+
 const { printConsole } = require("../utils/development");
 
 //Importing the mongoose library used to make the mongodb connection
 const mongoose = require("mongoose")
 
-//Importing the mongodb atlas link 
-const MONGO_DB_URI = process.env.MONO_REMOTE_URL; 
 //creating a function called connectToDB that handles the database connectio 
 const connectToDB = async () => {
     try {
@@ -18,7 +16,7 @@ const connectToDB = async () => {
       );
 
       //creating the mongodb database connection by using MONOG_DB_URI
-      const DBConnection = await mongoose.connect("mongodb+srv://restapi:D1hlCxGbZITD3vqU@cluster0.r3laqgl.mongodb.net", {
+      const DBConnection = await mongoose.connect("mongodb+srv://etsubdinkd12:Q1w2e3r4t5@cluster0.8m5ji2d.mongodb.net", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });

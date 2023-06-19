@@ -10,13 +10,13 @@ const asyncHandler = require("express-async-handler");
 
 
 
-const complaintModel = require("../models/complaint.mode");
+const complaintModel = require("../models/complaint.model");
 //Importing the UUIDv4 Library
 const { v4: uuidv4 } = require('uuid');
-//Get all products async function 
+//Get all complaints async function 
 const get = asyncHandler(async (req, res) => {
 
-    //Fetching all products from the database and assigning it to products
+    //Fetching all complaints from the database and assigning it to complaints
     const complaints = await complaintModel.find();
 
     //Responding the data to any request made
@@ -28,13 +28,13 @@ const get = asyncHandler(async (req, res) => {
 }
 );
 
-//Get Single Product
+//Get Single complaint
 const show = asyncHandler(async (req, res) => {
     //Destructing id from req.params
     const { id } = req.params
 
-    //Fetching single product using the id in the req.params from the database and assigning it to product
-    const complaint = await productModel.findOne({ productId: id });
+    //Fetching single complaint using the id in the req.params from the database and assigning it to complaint
+    const complaint = await complaintModel.findOne({ complaintId: id });
 
     try {
         if(complaint){
@@ -56,20 +56,21 @@ const show = asyncHandler(async (req, res) => {
 
 const create = asyncHandler(async (req, res) => {
     //Destruct the data sent from req.body 
-    const { name, description, date } = req.body
+    const { name, description, destination,date } = req.body
 
-    //we use uuidv4 to generate a random and unique id for the products
+    //we use uuidv4 to generate a random and unique id for the complaints
     const complaintId = uuidv4();
 
     try {
-        //creating the product
+        //creating the complaint
         const complaint = await new complaintModel({
             complaintId: complaintId,
             name: name,
             description: description,
+            destination:destination,
             date: date
         })
-        //save the product
+        //save the complaint
         complaint.save();
 
         return res.status(201).json({
@@ -86,23 +87,24 @@ const create = asyncHandler(async (req, res) => {
 });
 const update = asyncHandler(async (req, res) => {
     //Destruct the data sent from req.body 
-    const { name, description, date } = req.body
+    const { name, description,destination, date } = req.body
 
     //Destructing the id from req.params
     const { id } = req.params
 
-    //assigning the specfic product to variable called product
+    //assigning the specfic product to variable called complaint
     let complaint = await complaintModel.findOne({ complaintId: id });
 
     try {
 
         if (complaint) {
-            //updating the datas of that product
+            //updating the datas of that complaint
             complaint.updateOne(
                 {
                     $set: {
                         name: name,
                         description: description,
+                        destination:destination,
                         date: date,
                     }
                 },
@@ -129,14 +131,14 @@ const update = asyncHandler(async (req, res) => {
     } 
 });
 
-//Delete a single product
+//Delete a single complaint
 const deleteComplaint = asyncHandler(async (req, res) => {
     //Destructing id from req.params
     const { id } = req.params
 
     try {
 
-    //Fetching single product using the id in the req.params from the database and assigning it to product
+    //Fetching single complaint using the id in the req.params from the database and assigning it to complaint
     await complaintModel.deleteOne({ complaintId: id });
 
     //Since there is no data to be responde we simple send a message
